@@ -426,7 +426,7 @@ function filter_view(index, params){
 }
 
 function download_click(e){
-    if(localStorage.getItem("port") != "postpace" && init_data.userData.subscription_data.library.indexOf(e.target.getAttribute("object-id")) == -1 && init_data["userData"]["subscription_data"]["free_subscription"] == true && e.target.getAttribute("free") == "false"){
+    if(localStorage.getItem("postpace_user_type") == "free" && e.target.getAttribute("free") == "false"){
         go_premium_click();
     } else {
         var dl = e.target;
