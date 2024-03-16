@@ -20,7 +20,7 @@ $plugin_name = $xmlElm.ExtensionManifest.ExtensionBundleName;
 $plugin_id = $xmlElm.ExtensionManifest.ExtensionBundleId;
 $ver = $xmlElm.ExtensionManifest.ExtensionBundleVersion;
 $source = $xmlElm.ExtensionManifest.Source;
-$file = "${plugin_id}-${ver}-${source}.zip".ToLower();
+$file = "${plugin_id}-${ver}.zip".ToLower();
 $file_plugin = "${plugin_name}-${ver}.zxp".replace(" ", "-").ToLower();
 
 echo "Installing ${plugin_name} ${ver}... takes a few minute"
