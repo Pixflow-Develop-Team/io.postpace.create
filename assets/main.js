@@ -737,7 +737,7 @@ xhr_init_data.addEventListener("load", function(){
         }
         var sub_data = user_data["subscription_data"];
         document.querySelector("#plan-review > div > p.plan").innerHTML = sub_data["title"];
-        if(sub_data.free_subscription == false){
+        if(localStorage.getItem("postpace_user_type") == "premium"){
             document.querySelector("#download-center > div.premium").classList.add("active");
             document.querySelector("#download-center > div.free").classList.remove("active");
             document.getElementById("notice").innerHTML = sub_data.description;
