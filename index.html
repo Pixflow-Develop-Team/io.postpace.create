@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" oncontextmenu="return false;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title></title>
+    <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+    <div id="header">
+        <div id="main-page">
+            <img src="./assets/images/product-icon.png">
+            <p></p>    
+        </div>
+        <div>
+            <notification-element></notification-element>
+            <img src="./assets/images/start-with-ai.svg" id="start-engine">
+        </div>
+    </div>
+    <div id="tools">
+        <div id="search-tools">
+            <button><img src="./assets/images/search.svg"></button>
+            <input type="text" placeholder="Search" id="search">
+            <button class="delete" disabled><img src="./assets/images/cross.svg"></button>
+        </div>
+        <div class="dropdown">
+            <button id="tag-filter-button"><div></div><img src="./assets/images/drop-down.svg"></button>
+            <button id="custom-filter-button"><div><span class="count"></span> Filter<span class="plural">s</span></div><img src="./assets/images/drop-down.svg"></button>
+        </div>
+    </div>
+    <div>
+        <window-element id="tag-filter" animation-class="scrolldown">
+            <div id="tag-trending" class="active">
+                <div>Trending</div>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="tag-new">
+                <div>New</div>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="tag-free">
+                <div>Free</div>
+                <div>
+                    <div></div>
+                </div>
+            </div>
+        </window-element>
+        <window-element id="categories" animation-class="scrolldown"></window-element>
+        <window-element id="custom-filter" animation-class="scrolldown">
+            <div>
+                <p>Categories</p>
+                <div id="categories-filter"></div>
+                <div id="file-type">
+                    <p>File Type</p>
+                </div>
+                <div id="compatible">
+                    <div id="PPRO">Premiere Pro</div>
+                    <div id="ILST">Illustrator</div>
+                    <div id="AEFT">After Effects</div>
+                    <div id="PHXS">Photoshop</div>
+                    <div id="LUT">LUT</div>
+                </div>
+                <div id="quality">
+                    <p>Maximum Resolution</p>
+                </div>                
+            </div>
+            <button id="save-filter">Save Filter</button>
+        </window-element>    
+    </div>
+    <div id="main">
+    </div>
+    <div id="footer">
+        <div class="loading-percent-view"></div>
+        <div id="user">
+            <img src="./assets/images/default-avatar.svg" class="avatar">
+            <span></span>
+            <img src="./assets/images/drop-down.svg">
+        </div>
+        <button id="library-button">Library</button>
+    </div>
+    <window-element id="account" animation-class="scrollup">
+        <div class="profile">
+            <img src="./assets/images/default-avatar.svg" class="avatar">
+            <div>
+                <p class="user"></p>
+                <p class="email"></p>
+            </div>
+        </div>
+        <div id="plan-review">
+            <div>
+                <p>Active Plan:</p>
+                <p class="plan">Ellite</p>
+            </div>
+            <button id="go-premium">Go Premium</button>
+        </div>
+        <div id="download-center-calendar">
+            <div id="download-center">
+                <img src="./assets/images/download-center.svg">
+                <p>Download limit:</p>
+                <div class="premium">
+                    <span id="download-counter"></span> / <span id="plan-point">Unlimited</span>
+                </div>
+                <div class="free active">Free items only</div>
+            </div>
+            <div id="calendar">
+                <img src="./assets/images/calendar.svg">
+                <p>Plan renewal date:</p>
+                <div>
+                    <span id="plan-day-total">-</span>
+                </div>
+            </div>
+        </div>
+        <p id="notice"></p>
+        <ul id="resource-menu">
+            <li link="https://app.postpace.io/dashboard/account">
+                <div>
+                    <img src="./assets/images/profile.svg">
+                    <span>Postpace profile</span>
+                </div>
+                <img src="./assets/images/link.svg">
+            </li>
+            <li link="https://postpace.io/privacy-policy/">
+                <div>
+                    <img src="./assets/images/license.svg">
+                    <span>License & Agreements</span>
+                </div>
+                <img src="./assets/images/link.svg">
+            </li>
+            <li class="disabled">
+                <div>
+                    <img src="./assets/images/team-access.svg">
+                    <span>Team access</span>
+                </div>
+                <img src="./assets/images/link.svg">
+            </li>
+            <li class="logout">
+                <div>
+                    <img src="./assets/images/logout.svg">
+                    <span>Log out</span>
+                </div>
+            </li>
+        </ul>
+        <pixflow-publish-year></pixflow-publish-year>
+    </window-element>
+    <window-element id="library" animation-class="scrollup">
+        <div class="tools">
+            <p>My Library</p>
+            <ul>
+                <li class="hide"><button class="active">My Download</button></li>
+                <li class="hide"><button>Saved Elements</button></li>
+            </ul>
+        </div>
+        <div id="library-pack"></div>
+    </window-element>
+    <window-element id="upgrade-planning" animation-class="scrollup">
+        <div class="header"></div>
+        <div class="close"></div>
+        <div class="content">
+            <div>
+                <h2>Unleash <span></span></h2>
+                <h2>For your workspace</h2>
+                <h3>All the Templates You Need, Under One Subscription</h3>
+                <div class="features">
+                    <div><img src="./assets/images/tick.svg"> +2k Premium assets</div>
+                    <div><img src="./assets/images/tick.svg"> +1K Graphic Elements</div>
+                </div>
+                <div class="plan active" data-selected="starter">
+                    <div>
+                        <div>Starter</div>
+                        <div>up to 3 members</div>
+                    </div>
+                    <div>
+                        <span class="cost">Free of charge</span>
+                        <span class="duration">/-</span>
+                        <div class="check"><div></div></div>
+                    </div>
+                </div>
+                <div class="plan" data-selected="team">
+                    <div>
+                        <div>Team</div>
+                        <div>Up to 15 members</div>
+                    </div>
+                    <div>
+                        <span class="cost-off"></span>
+                        <span class="cost">$14.9</span>
+                        <span class="duration">/Month</span>
+                        <div class="check"><div></div></div>
+                    </div>
+                </div>
+                <div class="plan" data-selected="Studio">
+                    <div>
+                        <div>Studio</div>
+                        <div>Up to 100 members</div>
+                    </div>
+                    <div>
+                        <span class="cost-off">$25$</span>
+                        <span class="cost">$18.9</span>
+                        <span class="duration">/Month</span>
+                        <div class="check"><div></div></div>
+                    </div>
+                </div>
+                <button id="get-started">Get Started</button>    
+            </div>
+        </div>
+    </window-element>
+    <window-element id="engine-ai" animation-class="scrollup">
+        <div class="close"></div>
+        <div>
+            <div>
+                <div class="header"></div>
+                <img class="stars" src="./assets/images/stars.png" width="51">
+                <p class="about-module">Pixflow Generative AI is Coming Soon</p>
+                <p class="description">Pixflow is bringing the ultimate power of Generative AI to you as a creative engine for limitless idea generation.</p>
+                <img class="psedo-form" src="./assets/images/engine-ai-comming-soon.svg">
+                <button id="engine-ai-got-it">Got it!</button>        
+            </div>
+        </div>
+    </window-element>
+    <window-element id="block" animation-class="fade"></window-element>
+    <window-element class="loading active" animation-class="fade">
+        <div class="initial-loading"></div>
+        <div class="load-user-library active">
+            <p>Fetching user and data</p>
+            <p>This may take a few moments...</p>
+        </div>
+    </window-element>
+    <div id="data">
+        <div class="item">
+            <div class="thumbnail">
+                <div class="have-guide"><img src="./assets/images/info.svg"></div>
+                <div class="tag">
+                    <div class="free">Free</div>
+                    <div class="new">New</div>
+                </div>
+                <video poster="" data-src="" loop muted height="auto" width="100%">
+                    <source src="" type="video/webm">
+                </video>
+            </div>
+            <div class="properties">
+                <div>
+                    <span class="title"></span>
+                    <span class="categories"></span>
+                </div>
+                <div class="status">
+                    <div>
+                        <span></span>
+                        <span class="retry"></span>
+                    </div>
+                    <div class="stop">
+                        <div></div>
+                    </div>
+                    <div class="download" category-name="" downloadable-file="" object-id="" have-guide=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="catpack">
+            <div class="catimg">
+                <img src="">
+                <span></span>    
+            </div>
+            <div class="deselect"></div>
+        </div>
+        <div class="msg-no-item">
+            <img src="./assets/images/message-not-found.png">
+            <p>No Results Found</p>
+            <p>We couldn&apos;t find any item that matches your query</p>
+        </div>
+        <div class="no-sequence">
+            <img src="./assets/images/composition-icon.png" width="94">
+            <p>Create a sequence first</p>
+            <div>
+                <button class="btn got-it">Got it</button>
+            </div>
+        </div>
+        <div class="checkbox-batch"></div>
+        <div class="extension">
+            <input type="checkbox" id="">
+            <div class="checkbox"></div>
+            <label for=""></label>
+        </div>
+        <div class="ban-download">
+            <p></p>
+            <div>
+                <button class="btn got-it">Got it</button>
+            </div>
+        </div>
+        <div class="path-lut">
+            <img src="./assets/images/path-icon.png" width="94">
+            <p><span class="item-name"></span> is now saved in <span class="target-path"></span></p>
+            <div><button class="got-it">Got it!</button></div>
+        </div>
+        <div class="select-composition">
+            <img src="./assets/images/composition-icon.png" width="94">
+            <p>Select a composition first</p>
+            <div>
+                <button class="got-it">Got it!</button>
+            </div>
+        </div>
+    </div>
+    <pixflow-extension-update></pixflow-extension-update>
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.18.0/dist/algoliasearch-lite.umd.js" integrity="sha256-V3GHVlMSAsogT3wL0OY/l4d3fRLa56gNzlnzdIMBIWg=" crossorigin="anonymous"></script>
+    <script src="./assets/main.js"></script>
+</body>
+</html>

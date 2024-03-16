@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <ExtensionManifest
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    ExtensionBundleId="net.pixflow.motionfactory.pro"
+    ExtensionBundleName="Postpace Create"
+    ExtensionBundleVersion="4.5.2"
+    Version="6.0"
+    CreatedYear="2024"
+    Source="Postpace">
+    <ExtensionList>
+      <Extension Id="net.pixflow.motionfactory.pro"/>
+    </ExtensionList>
+    <ExecutionEnvironment>
+      <HostList>
+        <Host Name="PPRO" Version="[15.0,24.2]" />
+        <Host Name="AEFT" Version="[17.6,24.2]" />
+        <Host Name="PHXS" Version="[23.5,25.5]" />
+        <Host Name="PHSP" Version="[23.5,25.5]" />
+      </HostList>
+      <LocaleList>
+        <Locale Code="All"/>
+      </LocaleList>
+      <RequiredRuntimeList>
+        <RequiredRuntime Name="CSXS" Version="6.0"/>
+      </RequiredRuntimeList>
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+      <Extension Id="net.pixflow.motionfactory.pro">
+        <DispatchInfo>
+          <Resources>
+            <MainPath>./node_modules/postpace-auth-theme/index.html</MainPath>
+            <CEFCommandLine>
+              <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+            <Parameter>--proxy-auto-detect</Parameter>
+            <Parameter>--allow-file-access-from-files</Parameter>
+            <Parameter>--allow-file-access</Parameter>
+            </CEFCommandLine>
+          </Resources>
+          <Lifecycle>
+            <AutoVisible>true</AutoVisible>
+          </Lifecycle>
+          <UI>
+            <Type>Panel</Type>
+            <Menu>Postpace Create</Menu>
+            <Geometry>
+              <Size>
+                <Height>850</Height>
+                <Width>600</Width>
+              </Size>
+            </Geometry>
+            <Icons>
+              <Icon Type="Normal"></Icon>
+              <Icon Type="RollOver"></Icon>
+              <Icon Type="DarkNormal"></Icon>
+              <Icon Type="DarkRollOver"></Icon>
+            </Icons>
+          </UI>
+        </DispatchInfo>
+      </Extension>
+    </DispatchInfoList>
+  </ExtensionManifest>
