@@ -816,17 +816,17 @@ var filter_params = {
     px_element_free_item: false
 }
 
-var pixflow_folder = os.homedir();
-var folders = ["AppData", "Roaming", "Pixflow"];
+var postpace_folder = os.homedir();
+var folders = ["AppData", "Roaming", "Postpace"];
 folders.forEach(function(value){
-    pixflow_folder = path.join(pixflow_folder, value);
-    if(fs.existsSync(pixflow_folder) == false){
-        fs.mkdirSync(pixflow_folder);
+    postpace_folder = path.join(postpace_folder, value);
+    if(fs.existsSync(postpace_folder) == false){
+        fs.mkdirSync(postpace_folder);
     }    
 })
-var app_folder = pixflow_folder;
+var app_folder = postpace_folder;
 var lut_folder = os.homedir();
-folders = ["Documents", "Pixflow", "LUTs"];
+folders = ["Documents", "Postpace", "LUTs"];
 folders.forEach(function(value){
     lut_folder = path.join(lut_folder, value);
     if(fs.existsSync(lut_folder) == false){
