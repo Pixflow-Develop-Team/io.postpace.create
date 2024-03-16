@@ -132,3 +132,5 @@ dist
 package-lock.json
 styles.css.map
 styles.css
+dist
+build

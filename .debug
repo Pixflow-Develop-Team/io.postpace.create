@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionList>
-    <Extension Id="net.pixflow.motionfactory.pro">
+    <Extension Id="io.postpace.create">
         <HostList>
-            <Host Name="PHXS" Port="8201"/>
-            <Host Name="PPRO" Port="8202"/>
-            <Host Name="AEFT" Port="8203"/>
+            <Host Name="PHXS" Port="9201"/>
+            <Host Name="PPRO" Port="9202"/>
+            <Host Name="AEFT" Port="9203"/>
         </HostList>
     </Extension>
 </ExtensionList>

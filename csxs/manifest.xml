@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <ExtensionManifest
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    ExtensionBundleId="net.pixflow.motionfactory.pro"
+    ExtensionBundleId="io.postpace.create"
     ExtensionBundleName="Postpace Create"
     ExtensionBundleVersion="4.5.2"
     Version="6.0"
     CreatedYear="2024"
     Source="Postpace">
     <ExtensionList>
-      <Extension Id="net.pixflow.motionfactory.pro"/>
+      <Extension Id="io.postpace.create"/>
     </ExtensionList>
     <ExecutionEnvironment>
       <HostList>
@@ -25,7 +25,7 @@
       </RequiredRuntimeList>
     </ExecutionEnvironment>
     <DispatchInfoList>
-      <Extension Id="net.pixflow.motionfactory.pro">
+      <Extension Id="io.postpace.create">
         <DispatchInfo>
           <Resources>
             <MainPath>./node_modules/postpace-auth-theme/index.html</MainPath>
