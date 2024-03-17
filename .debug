@@ -2,7 +2,6 @@
 <ExtensionList>
     <Extension Id="io.postpace.create">
         <HostList>
-            <Host Name="PHXS" Port="9201"/>
             <Host Name="PPRO" Port="9202"/>
             <Host Name="AEFT" Port="9203"/>
         </HostList>
