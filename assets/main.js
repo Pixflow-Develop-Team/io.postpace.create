@@ -356,6 +356,8 @@ function filter_view(index, params){
         "filters" : filters(params),
         "optionalFilters": params.optionalFilters
         }).then(function({ hits }){
+            offset = 0;
+            limit = inc;
             element_main.querySelectorAll("div.item").forEach(function(element){
                 element.remove();
             })
@@ -433,11 +435,15 @@ function render_items_limit(items){
     }
 }
 
+function maximum_scroll(){
+    return Math.floor(75 / (element_main.clientWidth / 1920 * 4.5)) * limit;
+}
+
 document.querySelector("#main").addEventListener("scroll", function(e){
-    if(this.scrollTop > 80 * limit){
+    max = maximum_scroll();
+    if(this.scrollTop > max){
         offset += inc;
         limit += inc;
-        console.log(limit);
         render_items_limit(items);
     }
 });
@@ -686,6 +692,7 @@ var btn_delete = document.querySelector("button.delete");
 var offset = 0;
 var inc = 50;
 var limit = inc;
+var max = maximum_scroll();
 var items;
 document.querySelector("title").innerHTML = cep_manifest.get_extension_id();
 document.querySelector("#upgrade-planning h2 > span").innerHTML = cep_manifest.get_extension_name();
