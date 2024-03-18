@@ -380,9 +380,8 @@ function filter_view(index, params){
                     log_search.send();
                 }
                 element_main.scrollTop = 0;
-                hits.forEach(function(item){
-                    element_main.appendChild(generate_item(item));
-                })
+                items = hits;
+                render_items_limit(items);
                 for(var i = 1; i < 9; i++){
                     const video = document.querySelector(`div.item:nth-child(${i}) video`);
                     if(video != null)
@@ -424,6 +423,24 @@ function filter_view(index, params){
             }
     });    
 }
+
+function render_items_limit(items){
+    for(var i = offset; i < limit; i++){
+        if(items[i] != null)
+            element_main.appendChild(generate_item(items[i]));
+        else
+            return;
+    }
+}
+
+document.querySelector("#main").addEventListener("scroll", function(e){
+    if(this.scrollTop > 80 * limit){
+        offset += inc;
+        limit += inc;
+        console.log(limit);
+        render_items_limit(items);
+    }
+});
 
 function download_click(e){
     if(localStorage.getItem("postpace_user_type") == "free" && e.target.getAttribute("free") == "false"){
@@ -666,6 +683,10 @@ var element_engine_ai_got_it = document.getElementById("engine-ai-got-it");
 var element_search_tools = document.getElementById("search-tools");
 var element_button_search = document.querySelector("#search-tools > button");
 var btn_delete = document.querySelector("button.delete");
+var offset = 0;
+var inc = 50;
+var limit = inc;
+var items;
 document.querySelector("title").innerHTML = cep_manifest.get_extension_id();
 document.querySelector("#upgrade-planning h2 > span").innerHTML = cep_manifest.get_extension_name();
 const algoliasearch = require('algoliasearch');
