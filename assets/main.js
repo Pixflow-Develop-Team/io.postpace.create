@@ -396,25 +396,6 @@ function filter_view(index, params){
                 element_loading.classList.remove("active");
                 element_loading.querySelector("div.load-user-library").classList.remove("active");
                 document.querySelector("#header").addEventListener("click", header_click)
-                document.querySelectorAll("#main > div.item").forEach(function(element){
-                    element.addEventListener("click", item_overall_click)
-                })
-                document.querySelectorAll("#library div.have-guide, #main div.have-guide").forEach(function(element){
-                    element.addEventListener("click", have_guide_click)
-                })
-                document.querySelectorAll("div.thumbnail").forEach(function(element){
-                    element.addEventListener("mouseenter", video_mouse_enter)
-                    element.addEventListener("mouseleave", video_mouse_leave)
-                });
-                document.querySelectorAll("div.item div.download").forEach(function(element){
-                    element.removeEventListener("click", download_click)
-                })
-                document.querySelectorAll("div.item div.download").forEach(function(element){
-                    element.addEventListener("click", download_click)
-                })
-                document.querySelectorAll("#main > div.item > div.thumbnail").forEach(function(element){
-                    element.addEventListener("dblclick", video_dblclick)
-                })
             }
             else {
                 var msg = document.querySelector("#data > div.msg-no-item").cloneNode(true);
@@ -433,6 +414,25 @@ function render_items_limit(items){
         else
             return;
     }
+    document.querySelectorAll("#main > div.item").forEach(function(element){
+        element.addEventListener("click", item_overall_click)
+    })
+    document.querySelectorAll("#library div.have-guide, #main div.have-guide").forEach(function(element){
+        element.addEventListener("click", have_guide_click)
+    })
+    document.querySelectorAll("div.thumbnail").forEach(function(element){
+        element.addEventListener("mouseenter", video_mouse_enter)
+        element.addEventListener("mouseleave", video_mouse_leave)
+    });
+    document.querySelectorAll("div.item div.download").forEach(function(element){
+        element.removeEventListener("click", download_click)
+    })
+    document.querySelectorAll("div.item div.download").forEach(function(element){
+        element.addEventListener("click", download_click)
+    })
+    document.querySelectorAll("#main > div.item > div.thumbnail").forEach(function(element){
+        element.addEventListener("dblclick", video_dblclick)
+    })
 }
 
 function maximum_scroll(){
