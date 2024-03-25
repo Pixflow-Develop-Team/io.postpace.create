@@ -4,7 +4,7 @@ function download(app_folder, element, categoryName, item){
     var path_item = path.join(app_folder, categoryName, item);
     var target_path = path_item.substring(0, path_item.indexOf("."));
     var $this = element;
-    if(localStorage.getItem("port") != "postpace" && init_data.userData.subscription_data.library.indexOf(element.getAttribute("object-id")) >= 0 && fs.existsSync(target_path)){
+    if(fs.existsSync(target_path)){
         import_file(target_path, item, element);
         element.classList.remove("loading");
     }
@@ -31,11 +31,6 @@ function download(app_folder, element, categoryName, item){
             userEmail: localStorage.getItem("email"),
             itemSoftware: app_title
         }).toString();
-        if(localStorage.getItem("port") != "postpace"){
-            var dl_log = new XMLHttpRequest();
-            dl_log.open("post", `https://pixflow.net/wp-json/pixflow/log-download-item-to-database?${query_data}`);
-            dl_log.send();    
-        }
         dl_req.open("post", `https://pixflow.net/wp-json/pixflow/get-element-download-url-postpace-mode?${query_data}`);
         dl_req.addEventListener("load", function(){
             var res = JSON.parse(this.responseText);
@@ -92,26 +87,16 @@ function download(app_folder, element, categoryName, item){
                         $this.classList.remove("loading");
                         $this.classList.add("complete");
                         span.classList.remove("active");
-                        if(localStorage.getItem("port") != "postpace" && init_data.userData.subscription_data.library.indexOf($this.getAttribute("object-id")) < 0){
-                            var new_element = $this.parentNode.parentNode.parentNode.cloneNode(true);
-                            new_element.classList.remove("active");
-                            element_library_pack.appendChild(new_element);
-                            show_info(new_element.querySelector("div.download"), new_element);
-                            new_element.querySelector("div.have-guide").addEventListener("click", have_guide_click);
-                            new_element.addEventListener("click", item_overall_click)
-                            new_element.querySelector("div.thumbnail").addEventListener("mouseenter", video_mouse_enter)
-                            new_element.querySelector("div.thumbnail").addEventListener("mouseleave", video_mouse_leave)
-                            new_element.querySelector("div.download").addEventListener("click", download_click)
-                            new_element.querySelector("div.thumbnail").addEventListener("dblclick", video_dblclick)
-                            var xhr_add_item = new XMLHttpRequest();
-                            xhr_add_item.open("post", `https://pixflow.net/wp-json/pixflow/add-item-to-user-library?${query_data}`);
-                            xhr_add_item.addEventListener("load", function(){
-                                var res = JSON.parse(this.responseText);
-                                init_data.userData.subscription_data.library = res.data.result.user_library;
-                                document.getElementById("download-counter").innerHTML = res.data.result.download_count;
-                            })
-                            xhr_add_item.send();
-                        }
+                        var new_element = $this.parentNode.parentNode.parentNode.cloneNode(true);
+                        new_element.classList.remove("active");
+                        element_library_pack.appendChild(new_element);
+                        show_info(new_element.querySelector("div.download"), new_element);
+                        new_element.querySelector("div.have-guide").addEventListener("click", have_guide_click);
+                        new_element.addEventListener("click", item_overall_click)
+                        new_element.querySelector("div.thumbnail").addEventListener("mouseenter", video_mouse_enter)
+                        new_element.querySelector("div.thumbnail").addEventListener("mouseleave", video_mouse_leave)
+                        new_element.querySelector("div.download").addEventListener("click", download_click)
+                        new_element.querySelector("div.thumbnail").addEventListener("dblclick", video_dblclick)
                         lpv.classList.remove("active");
                         lpv.style.width = 0;
                         message_path($this, target_path);
@@ -287,16 +272,16 @@ function generate_item(item){
     var main_folder = item.px_element_software == "LUT" ? lut_folder : app_folder;
     var path_item = path.join(main_folder, item.px_element_main_category, item.px_element_downloadable_file);
     var target_path = path_item.substring(0, path_item.indexOf("."));
-    if(localStorage.getItem("port") != "postpace" && init_data.userData.subscription_data.library.indexOf(item.objectID) >= 0 && fs.existsSync(target_path)){
-        element_dl.classList.add("complete");
-        show_info(element_dl, thumb);
-    }
     var dl = item.px_element_downloadable_file;
     element_dl.setAttribute("downloadable-file", dl);
     element_dl.setAttribute("free", item.px_element_free_item);
     var is_lut = item.px_element_software == "LUT";
     element_dl.setAttribute("is-lut", is_lut);
     show_info(element_dl, thumb);
+    if(fs.existsSync(target_path)){
+        element_dl.classList.add("complete");
+        element_library_pack.appendChild(thumb.cloneNode(true));
+    }
     return thumb;
 }
 
@@ -997,13 +982,6 @@ element_save_filter.addEventListener("click", function(){
 element_library_button.addEventListener("click", function(){
     closeAllWindow("#library");
     if(is_create_library == false){
-        init_data["userData"]["subscription_data"]["library"].forEach(function(objectID){
-            if(objectID != "undefined" &&
-                undefined != all_library[objectID] &&
-                init_data.filters.fileTypes.indexOf(all_library[objectID].px_element_file_type) >= 0
-            )
-                element_library_pack.appendChild(generate_item(all_library[objectID]));
-        })
         document.querySelectorAll("#library-pack > div.item").forEach(function(element){
             element.addEventListener("click", item_overall_click)
         })
