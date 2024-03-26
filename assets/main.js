@@ -741,24 +741,9 @@ xhr_init_data.addEventListener("load", function(){
         element_categories_filter.appendChild(catpack);
     })
 
-    var user_data = init_data["userData"];
-
-    if(localStorage.getItem("port") != "postpace"){
-        user_id = user_data["userID"];
-        if(user_id == undefined || user_id == null){
-            logout.submit_click();
-        }
-        var sub_data = user_data["subscription_data"];
-        document.querySelector("#plan-review > div > p.plan").innerHTML = sub_data["title"];
-        if(localStorage.getItem("postpace_user_type") == "premium"){
-            document.querySelector("#download-center > div.premium").classList.add("active");
-            document.querySelector("#download-center > div.free").classList.remove("active");
-            document.getElementById("notice").innerHTML = sub_data.description;
-            document.getElementById("plan-day-total").innerHTML = sub_data["next_payment"];
-        }
-        document.getElementById("download-counter").innerHTML = sub_data["download_count"];
-        if(sub_data["download_limit"] != -1)
-            document.getElementById("plan-point").innerHTML = sub_data["download_limit"];
+    if(localStorage.getItem("postpace_user_type") == "premium"){
+        document.querySelector("#download-center > div.premium").classList.add("active");
+        document.querySelector("#download-center > div.free").classList.remove("active");
     }
 
     document.querySelector("#plan-review > div > p.plan").innerHTML = localStorage.getItem("postpace_user_type");
