@@ -280,9 +280,17 @@ function generate_item(item){
     show_info(element_dl, thumb);
     if(fs.existsSync(target_path)){
         element_dl.classList.add("complete");
-        element_library_pack.appendChild(thumb.cloneNode(true));
     }
     return thumb;
+}
+
+function generate_library(item){
+    var main_folder = item.px_element_software == "LUT" ? lut_folder : app_folder;
+    var path_item = path.join(main_folder, item.px_element_main_category, item.px_element_downloadable_file);
+    var target_path = path_item.substring(0, path_item.indexOf("."));
+    if(fs.existsSync(target_path)){
+        element_library_pack.appendChild(generate_item(item).cloneNode(true));
+    }
 }
 
 function have_guide_click(e){
@@ -369,6 +377,12 @@ function filter_view(index, params){
                 element_main.scrollTop = 0;
                 items = hits;
                 render_items_limit(items);
+                if(!is_generate_library){
+                    items.forEach(function(item){
+                        generate_library(item);
+                    })
+                    is_generate_library = true;
+                }
                 for(var i = 1; i < 9; i++){
                     const video = document.querySelector(`div.item:nth-child(${i}) video`);
                     if(video != null)
@@ -420,17 +434,10 @@ function render_items_limit(items){
     })
 }
 
-function maximum_scroll(){
-    return Math.floor(75 / (element_main.clientWidth / 1920 * 4.5)) * limit;
-}
-
 document.querySelector("#main").addEventListener("scroll", function(e){
-    max = maximum_scroll();
-    if(this.scrollTop > max){
-        offset += inc;
-        limit += inc;
-        render_items_limit(items);
-    }
+    offset += inc / 3.5;
+    limit += inc / 3.5;
+    render_items_limit(items);
 });
 
 function download_click(e){
@@ -675,10 +682,10 @@ var element_search_tools = document.getElementById("search-tools");
 var element_button_search = document.querySelector("#search-tools > button");
 var btn_delete = document.querySelector("button.delete");
 var offset = 0;
-var inc = 50;
+var inc = 70;
 var limit = inc;
-var max = maximum_scroll();
 var items;
+var is_generate_library = false;
 document.querySelector("title").innerHTML = cep_manifest.get_extension_id();
 document.querySelector("#upgrade-planning h2 > span").innerHTML = cep_manifest.get_extension_name();
 const algoliasearch = require('algoliasearch');
