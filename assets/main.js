@@ -376,13 +376,20 @@ function filter_view(index, params){
                 }
                 element_main.scrollTop = 0;
                 items = hits;
-                render_items_limit(items);
+                items.forEach(function(item){
+                    element_main.appendChild(generate_item(item));
+                    if(!is_generate_library){
+                        generate_library(item);
+                    }
+                })
+                is_generate_library = true;
+                /* render_items_limit(items);
                 if(!is_generate_library){
                     items.forEach(function(item){
                         generate_library(item);
                     })
                     is_generate_library = true;
-                }
+                } */
                 for(var i = 1; i < 9; i++){
                     const video = document.querySelector(`div.item:nth-child(${i}) video`);
                     if(video != null)
@@ -394,7 +401,26 @@ function filter_view(index, params){
                     pixflow_banner.show();
                 element_loading.classList.remove("active");
                 element_loading.querySelector("div.load-user-library").classList.remove("active");
-                document.querySelector("#header").addEventListener("click", header_click)
+                document.querySelector("#header").addEventListener("click", header_click);
+                document.querySelectorAll("#main > div.item").forEach(function(element){
+                    element.addEventListener("click", item_overall_click)
+                })
+                document.querySelectorAll("#library div.have-guide, #main div.have-guide").forEach(function(element){
+                    element.addEventListener("click", have_guide_click)
+                })
+                document.querySelectorAll("div.thumbnail").forEach(function(element){
+                    element.addEventListener("mouseenter", video_mouse_enter)
+                    element.addEventListener("mouseleave", video_mouse_leave)
+                });
+                document.querySelectorAll("div.item div.download").forEach(function(element){
+                    element.removeEventListener("click", download_click)
+                })
+                document.querySelectorAll("div.item div.download").forEach(function(element){
+                    element.addEventListener("click", download_click)
+                })
+                document.querySelectorAll("#main > div.item > div.thumbnail, #library div.item > div.thumbnail").forEach(function(element){
+                    element.addEventListener("dblclick", video_dblclick)
+                })
             }
             else {
                 var msg = document.querySelector("#data > div.msg-no-item").cloneNode(true);
@@ -413,32 +439,30 @@ function render_items_limit(items){
         else
             return;
     }
-    document.querySelectorAll("#main > div.item").forEach(function(element){
-        element.addEventListener("click", item_overall_click)
-    })
-    document.querySelectorAll("#library div.have-guide, #main div.have-guide").forEach(function(element){
-        element.addEventListener("click", have_guide_click)
-    })
-    document.querySelectorAll("div.thumbnail").forEach(function(element){
-        element.addEventListener("mouseenter", video_mouse_enter)
-        element.addEventListener("mouseleave", video_mouse_leave)
-    });
-    document.querySelectorAll("div.item div.download").forEach(function(element){
-        element.removeEventListener("click", download_click)
-    })
-    document.querySelectorAll("div.item div.download").forEach(function(element){
-        element.addEventListener("click", download_click)
-    })
-    document.querySelectorAll("#main > div.item > div.thumbnail").forEach(function(element){
-        element.addEventListener("dblclick", video_dblclick)
-    })
 }
 
-document.querySelector("#main").addEventListener("scroll", function(e){
-    offset += inc / 3.5;
-    limit += inc / 3.5;
-    render_items_limit(items);
+/* document.querySelector("#main").addEventListener("scroll", function(e){
+    const item = document.querySelector("#main > div.item");
+    const item_client_height = item.clientHeight;
+    const cnt_item = Math.floor(element_main.clientHeight / item_client_height);
+    const max = Math.ceil(this.scrollHeight - (cnt_item + 1) * item_client_height);
+    console.log(JSON.stringify({
+        scrollTop: this.scrollTop,
+        scrollHeight: this.scrollHeight,
+        item_client_height: item_client_height,
+        inc: inc,
+        offset: offset,
+        limit: limit,
+        cnt_item: cnt_item,
+        max: max
+    }));
+    if(this.scrollTop > max){
+        offset += limit;
+        limit += inc;
+        render_items_limit(items);            
+    }
 });
+ */
 
 function download_click(e){
     if(localStorage.getItem("postpace_user_type") == "free" && e.target.getAttribute("free") == "false"){
