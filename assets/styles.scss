@@ -241,6 +241,36 @@ body {
     float: left;
 }
 
+div.placeholder-loading {
+    color: #fff;
+    display: block;
+    position: absolute;
+    top: 30%;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    text-align: center;
+    > span::before {
+        content: '...';
+        animation-name: span-waiting;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;    
+    }
+}
+
+@keyframes span-waiting {
+    0% {
+        content: '.';
+    }
+    33% {
+        content: '..';
+    }
+    66% {
+        content: '...';
+    }
+}
+
 #main div.item.active, #library-pack div.item.active {
     border-color: #327BFA;
 }
@@ -313,6 +343,7 @@ div.item > div.thumbnail > div.have-guide > img.active {
     display: block;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
+    z-index: 1;
 }
 
 div.thumbnail > div.video-poster 
