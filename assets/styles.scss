@@ -132,7 +132,7 @@ body {
 }
 
 #search-tools > button:last-child:disabled {
-    cursor: none;
+    cursor: default;
 }
 
 #tools > div.dropdown > button, #footer > button {
