@@ -241,34 +241,19 @@ body {
     float: left;
 }
 
+$size: 18px;
+
 div.placeholder-loading {
     color: #fff;
     display: block;
     position: absolute;
-    top: 30%;
-    left: 0;
+    top: calc((100% - $size - 39px) / 2);
+    left: calc((100% - $size) / 2);
     z-index: 0;
     width: 100%;
-    text-align: center;
-    > span::before {
-        content: '...';
-        animation-name: span-waiting;
-        animation-duration: 2s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;    
-    }
-}
-
-@keyframes span-waiting {
-    0% {
-        content: '.';
-    }
-    33% {
-        content: '..';
-    }
-    66% {
-        content: '...';
-    }
+    background-image: url(./images/loading.gif);
+    height: $size;
+    width: $size;
 }
 
 #main div.item.active, #library-pack div.item.active {
