@@ -131,6 +131,10 @@ body {
     display: none;
 }
 
+#search-tools > button:last-child:disabled {
+    cursor: none;
+}
+
 #tools > div.dropdown > button, #footer > button {
     border: 0;
     outline: none;
@@ -241,7 +245,13 @@ body {
     float: left;
 }
 
+#library-pack div.placeholder-loading {
+    display: none;
+}
+
 $size: 18px;
+
+@import './loading.scss';
 
 div.placeholder-loading {
     color: #fff;
@@ -251,7 +261,6 @@ div.placeholder-loading {
     left: calc((100% - $size) / 2);
     z-index: 0;
     width: 100%;
-    background-image: url(./images/loading.gif);
     height: $size;
     width: $size;
 }

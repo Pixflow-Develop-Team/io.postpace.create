@@ -397,6 +397,9 @@ function filter_view(index, params){
                     else
                         break;
                 }
+                setTimeout(() => {
+                    document.querySelectorAll("#main div.placeholder-loading, #library-pack div.placeholder-loading").forEach(element => element.remove());
+                }, 5000);
                 if(pixflow_banner != null)
                     pixflow_banner.show();
                 element_loading.classList.remove("active");
