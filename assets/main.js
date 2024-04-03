@@ -397,9 +397,13 @@ function filter_view(index, params){
                     else
                         break;
                 }
-                setTimeout(() => {
-                    document.querySelectorAll("#main div.placeholder-loading, #library-pack div.placeholder-loading").forEach(element => element.remove());
-                }, 5000);
+                document.querySelectorAll("#main video, #library-pack video").forEach(element => {
+                    element.addEventListener("load", e => {
+                        setTimeout(() => {
+                            element.querySelector("div.placeholder-loading").remove();
+                        }, 2000);
+                    })
+                });
                 if(pixflow_banner != null)
                     pixflow_banner.show();
                 element_loading.classList.remove("active");
@@ -869,27 +873,36 @@ document.getElementById("LUT").disabled = appName == "ILST";
 
 element_app.disabled = false;
 
-element_search.addEventListener("click", function(){
+function open_categoies(){
     element_categories.openWindow();
     element_block.openWindow();
-    this.classList.add("active");
+    element_search.classList.add("active");
     element_custom_filter.closeWindow();
     element_tag_filter.closeWindow();
     element_tag_filter_button.classList.remove("active");
     element_custom_filter_button.classList.remove("active");
-})
+    element_search.focus();
+}
+
+element_search.addEventListener("click", open_categoies)
 
 element_search_tools.addEventListener("click", function(){
     this.classList.add("active");
     if(element_search.value.length)
         btn_delete.disabled = false;
-    else
+    else {
         btn_delete.disabled = true;
+        open_categoies();
+    }
 })
 
 element_button_search.addEventListener("click", function(){
-    search_items(element_search);
-    find_bubble(element_search.value.split(" "));
+    if(element_search.value.trim().length){
+        search_items(element_search);
+        find_bubble(element_search.value.split(" "));    
+    } else {
+        open_categoies();
+    }
 })
 
 element_search.addEventListener("keypress", function(e){
