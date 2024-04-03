@@ -112,15 +112,18 @@ body {
     border: 0;
     cursor: pointer;
     outline: none;
-    width: 74px;
+    position: relative;
+    padding: 0 11px;
 }
 
 #search-tools.active > button:last-child {
-    width: 44px;
+    width: 11px;
 }
 
 #search-tools.active > button:last-child img {
     display: block;
+    position: relative;
+    right: 11px;
 }
 
 #search-tools > button:last-child img {

@@ -397,12 +397,10 @@ function filter_view(index, params){
                     else
                         break;
                 }
-                document.querySelectorAll("#main video, #library-pack video").forEach(element => {
-                    element.addEventListener("load", e => {
-                        setTimeout(() => {
-                            element.querySelector("div.placeholder-loading").remove();
-                        }, 2000);
-                    })
+                document.querySelectorAll("#main div.placeholder-loading, #library-pack div.placeholder-loading").forEach(element => {
+                    setTimeout(() => {
+                        element.remove();
+                    }, 5000);
                 });
                 if(pixflow_banner != null)
                     pixflow_banner.show();
