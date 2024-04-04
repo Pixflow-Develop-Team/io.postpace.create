@@ -928,7 +928,7 @@ function closeAllWindow(element){
     if(element != undefined)
         selector.push(element);
     if(element_account.classList.contains("active"))
-        selector.push("#account");
+        user_account();
     if(selector.length)
         selector = `:not(${selector.join(",")})`;
     document.querySelectorAll(`window-element${selector}`).forEach(function(element){
@@ -1043,18 +1043,18 @@ element_main_page.addEventListener("click", function(){
     closeAllWindow();
 })
 
-element_user.addEventListener("click", function(){
-    closeAllWindow("#account");
-    if(this.classList.contains("active")){
-        this.classList.remove("active");
+function user_account(){
+    if(element_user.classList.contains("active")){
+        element_user.classList.remove("active");
         element_account.closeWindow();
     }
     else {
-        this.classList.add("active");
-        closeAllWindow("#account");
+        element_user.classList.add("active");
         element_account.openWindow();
     }
-})
+}
+
+element_user.addEventListener("click", user_account)
 
 function go_premium_click(){
     var selector = ["#upgrade-planning", "#block"];
