@@ -20,6 +20,7 @@
     "pixflow-cep-manifest": "^1.1.0",
     "pixflow-extension-update": "^1.0.0",
     "pixflow-logout": "^1.0.0",
+    "pixflow-offline": "^1.0.0",
     "pixflow-os-platform": "^1.0.1",
     "pixflow-publish-year": "^1.0.5",
     "postpace-auth-theme": "^1.0.4",

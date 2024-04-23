@@ -662,6 +662,7 @@ function got_it_click(e){
 require("window-element");
 require("notification-element");
 require("pixflow-banner");
+require("pixflow-offline");
 const pixflow_banner = document.querySelector("pixflow-banner");
 const CepManifest = require("pixflow-cep-manifest");
 const cep_manifest = new CepManifest();
@@ -832,6 +833,13 @@ xhr_init_data.addEventListener("load", function(){
     })
 
 })
+
+xhr_init_data.addEventListener("error", e => {
+    element_loading.classList.remove("active");
+    element_loading.querySelector("div.load-user-library").classList.remove("active");
+    element_main.appendChild(document.createElement("pixflow-offline").cloneNode(true));
+})
+
 xhr_init_data.send();
 var cmd;
 switch(appName){
