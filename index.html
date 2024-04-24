@@ -12,6 +12,7 @@
 <body>
     <div id="header">
         <div id="main-page">
+            <pixflow-disable class="logo"></pixflow-disable>
             <img src="./assets/images/product-icon.png">
             <p></p>    
         </div>
@@ -21,6 +22,7 @@
         </div>
     </div>
     <div id="tools">
+        <pixflow-disable></pixflow-disable>
         <div id="search-tools">
             <button><img src="./assets/images/search.svg"></button>
             <input type="text" placeholder="Search" id="search">
@@ -77,6 +79,7 @@
     <div id="main">
     </div>
     <div id="footer">
+        <pixflow-disable class="library"></pixflow-disable>
         <div class="loading-percent-view"></div>
         <div id="user">
             <img src="./assets/images/default-avatar.svg" class="avatar">
@@ -155,6 +158,14 @@
             <ul>
                 <li class="hide"><button class="active">My Download</button></li>
                 <li class="hide"><button>Saved Elements</button></li>
+            </ul>
+            <ul id="tag-filter-library">
+                <li class="required">
+                    <div></div>
+                    <img src="./assets/images/drop-down.svg">
+                </li>
+                <li class="required"></li>
+                <li class="required">All</li>
             </ul>
         </div>
         <div id="library-pack"></div>

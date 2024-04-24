@@ -90,6 +90,7 @@ function download(app_folder, element, categoryName, item){
                         var new_element = $this.parentNode.parentNode.parentNode.cloneNode(true);
                         new_element.classList.remove("active");
                         element_library_pack.appendChild(new_element);
+                        new_element.setAttribute("category-name", categoryName);
                         show_info(new_element.querySelector("div.download"), new_element);
                         new_element.querySelector("div.have-guide").addEventListener("click", have_guide_click);
                         new_element.addEventListener("click", item_overall_click)
@@ -166,8 +167,11 @@ function import_file(path_folder, item, el){
                     })
                 } else {
                     var import_as_type = file_type == "aep" ? "ImportAsType.PROJECT" : "ImportAsType.FOOTAGE";
-                    cmd = `var file = File("${path_file}"); app.beginSuppressDialogs(); var io = new ImportOptions(file); io.canImportAs(${import_as_type});`
-                    + `io.importAs = ${import_as_type}; var footage = app.project.importFile(io); app.endSuppressDialogs(false);`;
+                    cmd = `function getFolderize(){ var id = "${cep_manifest.get_extension_name()}"; for(var i = 1; i <= app.project.items.length; i++) { var item = app.project.item(i); if(item.name == id) return item; } return app.project.items.addFolder(id); }`
+                    + `var file = File("${path_file}"); app.beginSuppressDialogs(); var io = new ImportOptions(file); io.canImportAs(${import_as_type});`
+                    + `io.importAs = ${import_as_type}; var footage = app.project.importFile(io); app.endSuppressDialogs(false);`
+                    + `footage.name = "${el.getAttribute("item-name")}";`
+                    + `footage.parentFolder = getFolderize();`;
                 }
                 break;
         }
@@ -289,8 +293,11 @@ function generate_library(item){
     var path_item = path.join(main_folder, item.px_element_main_category, item.px_element_downloadable_file);
     var target_path = path_item.substring(0, path_item.indexOf("."));
     if(fs.existsSync(target_path)){
-        element_library_pack.appendChild(generate_item(item).cloneNode(true));
+        const _item = generate_item(item).cloneNode(true);
+        element_library_pack.appendChild(_item);
+        return _item;
     }
+    return null;
 }
 
 function have_guide_click(e){
@@ -382,6 +389,8 @@ function filter_view(index, params){
                         generate_library(item);
                     }
                 })
+                if(!is_generate_library)
+                    create_library();
                 is_generate_library = true;
                 /* render_items_limit(items);
                 if(!is_generate_library){
@@ -663,6 +672,7 @@ require("window-element");
 require("notification-element");
 require("pixflow-banner");
 require("pixflow-offline");
+require("pixflow-disable");
 const pixflow_banner = document.querySelector("pixflow-banner");
 const CepManifest = require("pixflow-cep-manifest");
 const cep_manifest = new CepManifest();
@@ -725,7 +735,7 @@ const index = client.initIndex('pixflow_elements');
 const index_trending = client.initIndex('pixflow_elements_trending');
 var app_title = element_app.innerHTML;
 var is_create_library = false;
-var init_data;
+var init_data = JSON.parse(localStorage.getItem("init_data")) || {};
 var xhr_init_data = new XMLHttpRequest();
 var query_data = new URLSearchParams({
     user_email_address: localStorage.getItem("email"),
@@ -737,7 +747,7 @@ var query_data = new URLSearchParams({
     plugin_name: cep_manifest.get_extension_name()
 }).toString();
 var user_id = null;
-var all_library = null;
+var all_library = JSON.parse(localStorage.getItem("all_library")) || {};
 var flag_download_stop = false;
 var dl_req, dl_link;
 var xhr_library = new XMLHttpRequest();
@@ -745,11 +755,13 @@ xhr_library.open("get", "https://pixflow.net/wp-content/uploads/px-element-cache
 xhr_library.send();
 xhr_library.addEventListener("load", function(){
     all_library = JSON.parse(this.responseText);
+    localStorage.setItem("all_library", this.responseText);
 });
 xhr_init_data.open("post", `https://pixflow.net/wp-json/pixflow/get-mf-plugin-init-data-postpace-mode?${query_data}`);
 xhr_init_data.setRequestHeader("pxAPIKey", "XxiSMuk@CVkYqJXhq04TevD5qXqsnDVyw3HWw");
 xhr_init_data.addEventListener("load", function(){
     init_data = JSON.parse(this.responseText);
+    localStorage.setItem("init_data", this.responseText);
     document.querySelector("#account > div.profile > div > p.email").innerHTML = localStorage.getItem("email");
     document.querySelectorAll("#user > img.avatar, #account > div.profile > img").forEach(function(element){
         element.src = localStorage.getItem("avatar").indexOf("http") > 0 ? localStorage.getItem("avatar") : path.join(__dirname, "assets/images/default-avatar.svg");
@@ -834,11 +846,77 @@ xhr_init_data.addEventListener("load", function(){
 
 })
 
+function disable_dropdown_filter_library(){
+    document.querySelector("#tag-filter-library").classList.remove("active");
+}
+
+function enable_dropdown_filter_library(){
+    document.querySelector("#tag-filter-library").classList.add("active");
+}
+
 xhr_init_data.addEventListener("error", e => {
     element_loading.classList.remove("active");
     element_loading.querySelector("div.load-user-library").classList.remove("active");
     element_main.appendChild(document.createElement("pixflow-offline").cloneNode(true));
+    document.querySelectorAll("pixflow-disable").forEach(element => {
+        element.classList.add("active");
+    })
+    create_library();
 })
+
+function create_library(){
+    element_library_pack.innerHTML = "";
+    let categories = [];
+    for(const objectID in all_library){
+        const obj = all_library[objectID];
+        const item = generate_library(obj);
+        if(item != null){
+            const category = obj.px_element_main_category;
+            item.setAttribute("category-name", category);
+            categories.push(category);
+        }
+    }
+    categories = categories.filter(function(value, index, array){
+        return array.indexOf(value) === index;
+    });
+    categories.forEach(content => {
+        const category = document.createElement("li");
+        category.innerHTML = content;
+        document.querySelector("#tag-filter-library").appendChild(category);
+    })
+    const first_item = document.querySelector("#tag-filter-library > li:nth-child(3)").innerHTML;
+    document.querySelector("#tag-filter-library > li > div").innerHTML = first_item;
+    document.querySelectorAll("#tag-filter-library > li").forEach((element) => {
+        element.removeEventListener("click", filter_library_click)
+    })
+    document.querySelectorAll("#tag-filter-library > li").forEach((element) => {
+        element.addEventListener("click", filter_library_click);
+    })
+}
+
+function filter_library_click(e){
+    let element = e.target;
+    let parent = element.parentNode;
+    if(element.toString() == "[object HTMLDivElement]"){
+        element = parent;
+        parent = parent.parentNode
+    }        
+    if(element.classList.contains("title") || element.classList.contains("separate")) {
+        parent.classList.toggle("active");
+        return;
+    } else {
+        if(element.toString() == "[object HTMLImageElement]")
+            element = element.parentNode;
+        element.parentNode.classList.remove("active");
+        const content = element.innerHTML;
+        document.querySelector("#tag-filter-library > li > div").innerHTML = content;
+        document.querySelector("#tag-filter-library").classList.remove("active");
+        document.querySelectorAll("#library-pack div.item").forEach(el => el.classList.remove("deactive"));
+        const first_item = document.querySelector("#tag-filter-library > li:nth-child(3)").innerHTML;
+        if(content != first_item)
+            document.querySelectorAll(`#library-pack div.item:not(div.item[category-name="${content}"])`).forEach(el => el.classList.add("deactive"));    
+    }
+}
 
 xhr_init_data.send();
 var cmd;
@@ -1040,11 +1118,24 @@ element_library_button.addEventListener("click", function(){
     }
     if(this.classList.contains("active")){
         this.classList.remove("active");
+        exit_library();
         element_library.closeWindow();
     } else {
         this.classList.add("active");
         element_library.openWindow();
     }
+})
+
+function exit_library(){
+    disable_dropdown_filter_library();
+    document.querySelectorAll("#library-pack div.item").forEach(el => el.classList.remove("deactive"));
+    document.querySelector("#tag-filter-library > li > div").innerHTML = document.querySelector("#tag-filter-library > li:nth-child(3)").innerHTML;
+}
+
+document.querySelectorAll("#footer, #library-pack").forEach(element => {
+    element.addEventListener("click", e => {
+        disable_dropdown_filter_library();
+    })
 })
 
 element_main_page.addEventListener("click", function(){

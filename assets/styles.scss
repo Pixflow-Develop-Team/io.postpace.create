@@ -836,10 +836,12 @@ div.load-user-library.active {
     display: flex;
     justify-content: space-between;
     width: 97%;
+    position: relative;
 }
 
 #library > div.tools > p {
-    color: #FFFFFF;    
+    color: #FFFFFF;
+    margin-left: 10px;
 }
 
 #library > div.tools button {
@@ -1493,5 +1495,88 @@ pixflow-publish-year {
     }
     to {
         opacity: 0;
+    }
+}
+
+ul#tag-filter-library {
+    cursor: pointer;
+    padding: 0;
+    z-index: 5;
+    background-color: #191919;
+    border-radius: 20px;
+    height: 40px;
+    flex-direction: column;
+    width: 160px;
+    overflow: hidden;
+    margin: 0;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    align-items: stretch;
+    &.active {
+        height: fit-content;
+        img {
+            transform: rotate(180deg);
+        }
+    }
+    > li {
+        color: #fff;
+        list-style: none;
+        line-height: 22px;
+        transition: 200ms background-color;
+        border-radius: 15px;
+        font-size: 13px;
+        padding: 5px 10px;
+        margin: 0 10px;
+        &:hover:not(li:nth-child(1), li:nth-child(2)) {
+            background-color: #3a3a3a61;
+        }
+        &:nth-child(1) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 9px;
+        }
+        &:nth-child(2) {
+            border-top: 1px solid #ffffff24;
+            border-radius: 0;
+            margin-top: 15px;
+        }
+        &:last-child {
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+    }
+    > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #191919;
+        border-radius: 43px;
+        width: 160px;
+        z-index: 6;
+        img {
+            transition: transform 200ms;
+            margin-right: 10px;
+        }
+        > div:first-child {
+            padding: 10px 18px;
+            border-radius: 43px;
+            color: #FFFFFF;
+            background-color: #191919;
+            display: block;
+            width: 100px;
+            position: relative;
+            z-index: 6;
+        }
+    }
+}
+
+#library-pack {
+    margin-right: 20px;
+    div.item {
+        &.deactive {
+            display: none!important;
+        }
     }
 }

@@ -18,6 +18,7 @@
     "pixflow-auth-motionfactory-theme": "^1.0.9",
     "pixflow-banner": "^1.0.8",
     "pixflow-cep-manifest": "^1.1.0",
+    "pixflow-disable": "^1.0.0",
     "pixflow-extension-update": "^1.0.0",
     "pixflow-logout": "^1.0.0",
     "pixflow-offline": "^1.0.0",
