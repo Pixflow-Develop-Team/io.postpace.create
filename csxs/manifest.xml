@@ -5,7 +5,8 @@
     ExtensionBundleName="Postpace Create"
     ExtensionBundleVersion="4.5.2"
     Version="6.0"
-    CreatedYear="2024">
+    CreatedYear="2024"
+    Source="Postpace">
     <ExtensionList>
       <Extension Id="io.postpace.create"/>
     </ExtensionList>

@@ -24,6 +24,7 @@
     "pixflow-offline": "^1.0.0",
     "pixflow-os-platform": "^1.0.1",
     "pixflow-publish-year": "^1.0.5",
+    "pixflow-view": "^1.0.5",
     "postpace-auth-theme": "^1.0.4",
     "report-login": "^1.0.0",
     "window-element": "^1.0.0"

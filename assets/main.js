@@ -673,6 +673,7 @@ require("notification-element");
 require("pixflow-banner");
 require("pixflow-offline");
 require("pixflow-disable");
+require("pixflow-view");
 const pixflow_banner = document.querySelector("pixflow-banner");
 const CepManifest = require("pixflow-cep-manifest");
 const cep_manifest = new CepManifest();
