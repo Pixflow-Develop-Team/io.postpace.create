@@ -146,7 +146,7 @@ function import_file(path_folder, item, el){
             case "PHXS": cmd = `open(File("${path_file}"))`; break;
             case "PPRO":
                 if(file_type == "mogrt")
-                    cmd = `app.project.activeSequence.importMGT("${path_file}", 0, 0, 0)`;
+                    cmd = `app.enableQE(); app.project.activeSequence.importMGT("${path_file}", qe.project.getActiveSequence().CTI.ticks, 0, 0)`;
                 else
                     cmd = `app.project.importFiles("${path_file}")`;
                 break;
